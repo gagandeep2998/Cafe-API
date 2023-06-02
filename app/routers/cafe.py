@@ -57,7 +57,7 @@ def create_cafe(cafe: schemas.CafeCreate, db: Session = Depends(get_db), current
 
 
 @router.get("/{id}", response_model=schemas.Cafe)
-def get_cafe(id: int, response: Response, db: Session = Depends(get_db)):
+def get_cafe(id: int, response: Response, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     cafe = db.query(models.Cafe).filter(models.Cafe.id == id).first()
     if not cafe:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -94,7 +94,7 @@ def update_cafe(id: int, cafe: schemas.CafeCreate, db: Session = Depends(get_db)
                             detail=f"Cafe with the id: {id} not found")
     print(type(cafe_to_update.owner_id))
     print(type(current_user.id))
-    
+
     if cafe_to_update.owner_id != int(current_user.id):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail="Not Authorized to perform requested action")
