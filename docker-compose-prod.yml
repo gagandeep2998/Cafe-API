@@ -3,10 +3,10 @@ services:
   api:
     build: gdeep29/cafeapi
 
-  ports:
-    - 80:8000
-  
-  envrionment:
-        - SECRET_KEY_API=${SECRET_KEY_API}
-        - ALGORITHM=${ALGORITHM}
-        - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES}
+    ports:
+      - 80:8000
+
+    environment:
+      - SECRET_KEY_API=${SECRET_KEY_API}
+      - ALGORITHM=${ALGORITHM}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES}
